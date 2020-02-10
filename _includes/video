@@ -1,5 +1,20 @@
+{% capture video_id %}{{ include.id }}{% endcapture %}
+{% capture video_provider %}{{ include.provider }}{% endcapture %}
+
       <figure>
+{% if video_provider == "vimeo" %}
+  <iframe src="https://player.vimeo.com/video/{{ video_id }}?dnt=true" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+{% elsif video_provider == "youtube" %}
+  <iframe src="https://www.youtube-nocookie.com/embed/{{ video_id }}" frameborder="0" allowfullscreen></iframe>
+{% elsif video_provider == "google-drive" %}
+  <iframe src="https://drive.google.com/file/d/{{ video_id }}/preview" frameborder="0" allowfullscreen></iframe>
+{% elseif video_provider == "mp4" %}
         <video>
-<source src="http://mydomain.com/path/to/video.mp4" type="video/mp4" />
+<source src="video_id" type="video/mp4" />
         </video>
+{% elseif video_provider == "m3u8" %}
+        <video>
+<source src="video_id" type="application/x-mpegUrl" />
+        </video>
+{% endif %}
       </figure>

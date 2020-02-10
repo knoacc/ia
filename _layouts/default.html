@@ -15,13 +15,14 @@ layout: compress
 
 <!-- Article body goes here -->
 
+<!-- A video within your article -->
+{% if page.header.video %}
+{% include video %}
+{% endif %}
+
 <!-- Body text for your article -->
 
 {{ content }}
-
-<!-- A video within your article -->
-
-{% include video %}
 
       <!-- An ad within your article -->
 {% include ads %}

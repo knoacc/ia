@@ -5,11 +5,8 @@ masthead_title: "SeBel"
 description: Seluk Beluk catatan yang tak terlalu penting tentang Web Development, Distro Linux, Android OS, Security Vulnerabilities hingga club sepakbola Liverpool FC"
 facebook:
  app_id: 720457594754641
-facebook:
- app_id: 720457594754641
  publisher: https://www.facebook.com/pssi.vi
 markdown: kramdown
-remote_theme: "mmistakes/minimal-mistakes@4.18.1"
 # Outputting
 permalink: /:categories/:title/
 paginate: 10 # amount of posts to show

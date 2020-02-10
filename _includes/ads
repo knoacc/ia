@@ -1,3 +1,13 @@
-      <figure class="op-ad">
-<iframe src="https://www.adserver.com/ss;adtype=banner320x50" height="60" width="320"></iframe>
-      </figure>
+<figure class="op-ad">
+  <iframe height="300" width="250">
+      <script>
+        window.addEventListener('message', receiveMessage);
+
+        function receiveMessage(event) {
+          if (event.data === 'enters_viewport') {
+            // ad entered viewport
+          }
+        }
+      </script>
+  </iframe>
+</figure>

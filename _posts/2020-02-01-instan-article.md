@@ -1,4 +1,5 @@
 ---
+layout: default
 title: Instan Article Test
 description: Ujicoba membuat posting instan artikel facebook
 header:

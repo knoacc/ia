@@ -51,11 +51,7 @@
 
 <!-- The cover image shown inside your article --> 
         <figure>
-{% if page_large_image %}
-          <img src="{{ page_large_image }}" />
-{% elseif %}
-          <img src="{{ page_teaser_image }}" />
-{% endif %}
+          <img src="{{ page_large_image | default: page_teaser_image | default: site.image }}" />
           <figcaption>{{ head_figcaption }}</figcaption>
         </figure>   
 

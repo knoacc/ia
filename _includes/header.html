@@ -1,30 +1,66 @@
+{% assign title_separator = site.title_separator | default: '-' | replace: '|', '&#124;' %}
+
+{%- if page.title -%}
+  {%- assign seo_title = page.title | append: " " | append: title_separator | append: " " | append: site.title -%}
+{%- endif -%}
+
+{%- if seo_title -%}
+  {%- assign seo_title = seo_title | markdownify | strip_html | strip_newlines | escape_once -%}
+{%- endif -%}
+
+{%- assign seo_description = page.description | default: page.excerpt | default: site.description -%}
+{%- if seo_description -%}
+  {%- assign seo_description = seo_description | markdownify | strip_html | newline_to_br | strip_newlines | replace: '<br />', ' ' | escape_once -%}
+{%- endif -%}
+
+{%- assign author = page.author | default: page.authors[0] | default: site.author -%}
+{%- assign author = site.data.authors[author] | default: author -%}
+{%- assign user = page.user | default: site.user -%}
+{%- assign user = site.data.authors[user] | default: author -%}
+
+{%- assign page_large_image = page.header.og_image | default: page.header.overlay_image | default: page.header.image -%}
+{%- unless page_large_image contains '://' -%}
+  {%- assign page_large_image = page_large_image | absolute_url -%}
+{%- endunless -%}
+{%- assign page_large_image = page_large_image | escape -%}
+
+{%- assign page_teaser_image = page.header.teaser | default: site.og_image -%}
+{%- unless page_teaser_image contains '://' -%}
+  {%- assign page_teaser_image = page_teaser_image | absolute_url -%}
+{%- endunless -%}
+{%- assign page_teaser_image = page_teaser_image | escape -%}
+
+{%- assign head_figcaption = page.header.caption | default: seo_title -%}
+
+
 <!-- The title and subtitle shown in your Instant Article -->
-        <h1>Article Title</h1>
-        <h2>Article Subtitle</h2>
+        <h1>{{ seo_title }}</h1>
+        <h2>{{ seo_description }}</h2>
 
+{% if page.date %}
 <!-- The date and time when your article was originally published -->
-        <time class="op-published" datetime="2014-11-11T04:44:16Z">November 11th, 4:44 PM</time>
+   <time class="op-published" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%d %B %Y' }}</time>
+{% endif %}
 
+{% page.last_modified_at %}
 <!-- The date and time when your article was last updated -->
         <time class="op-modified" dateTime="2014-12-11T04:44:16Z">December 11th, 4:44 PM</time>
+{% endif %}       
+
 
 <!-- The authors of your article -->
         <address>
-          <a rel="facebook" href="http://facebook.com/brandon.diamond">Brandon Diamond</a>
-          Brandon is an avid zombie hunter.
-        </address>
-        <address>
-          <a>TR Vishwanath</a>
-          Vish is a scholar and a gentleman.
+          <a rel="facebook" href="http://facebook.com/{% if author.user %}{{ author.user | default: user }}{% endif %}">{% if author.name %}{{ author.name | default: author }}{% else %}{{ author.user | default: user }}{% endif %}</a>
+          {% if author.bio %}{{ author.bio }}{% endif %}.
         </address>
 
 <!-- The cover image shown inside your article --> 
         <figure>
-          <img src="http://mydomain.com/path/to/img.jpg" />
-          <figcaption>This image is amazing</figcaption>
+          <img src="{{ page_large_image }}" />
+          <figcaption>{{ head_figcaption }}</figcaption>
         </figure>   
 
 <!-- A kicker for your article --> 
         <h3 class="op-kicker">
-          This is a kicker
+          {{ seo_description }}
         </h3>

@@ -13,11 +13,6 @@
   {%- assign seo_description = seo_description | markdownify | strip_html | newline_to_br | strip_newlines | replace: '<br />', ' ' | escape_once -%}
 {%- endif -%}
 
-{%- assign author = page.author | default: page.authors[0] | default: site.author -%}
-{%- assign author = site.data.authors[author] | default: author -%}
-{%- assign user = page.user | default: site.user -%}
-{%- assign user = site.data.authors[user] | default: author -%}
-
 {%- assign page_large_image = page.header.og_image | default: page.header.overlay_image | default: page.header.image -%}
 {%- unless page_large_image contains '://' -%}
   {%- assign page_large_image = page_large_image | absolute_url -%}
@@ -50,13 +45,17 @@
 
 <!-- The authors of your article -->
         <address>
-          <a rel="facebook" href="http://facebook.com/{% if author.user %}{{ author.user | default: user }}{% endif %}">{% if author.name %}{{ author.name | default: author }}{% else %}{{ author.user | default: user }}{% endif %}</a>
-          {% if author.bio %}{{ author.bio }}{% endif %}.
+          <a rel="facebook" href="{{ author.url }}">{{ author.name }}</a>
+          {{ author.bio }}
         </address>
 
 <!-- The cover image shown inside your article --> 
         <figure>
+{% if page_large_image %}
           <img src="{{ page_large_image }}" />
+{% elseif %}
+          <img src="{{ page_teaser_image }}" />
+{% endif %}
           <figcaption>{{ head_figcaption }}</figcaption>
         </figure>   
 

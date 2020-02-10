@@ -39,7 +39,7 @@
 
 {% page.last_modified_at %}
 <!-- The date and time when your article was last updated -->
-        <time class="op-modified" dateTime="2014-12-11T04:44:16Z">December 11th, 4:44 PM</time>
+        <time class="op-modified" dateTime="{{ page.last_modified_at | date_to_xmlschema }}">{{ page.last_modified_at | date: '%d %B %Y' }}</time>
 {% endif %}       
 
 
